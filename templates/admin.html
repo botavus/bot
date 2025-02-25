@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Админ-панель</h1>
+    <form method="post">
+        <label for="topic">Тема по умолчанию:</label>
+        <input type="text" id="topic" name="topic" value="{{ topic }}">
+        <br>
+        <label>Время публикации (HH:MM):</label>
+        <br>
+        {% for time in post_times %}
+            <input type="text" name="post_times" value="{{ time }}">
+            <br>
+        {% endfor %}
+        <button type="submit">Сохранить</button>
+    </form>
+</body>
+</html>

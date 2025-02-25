@@ -7,21 +7,21 @@ const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 async function generateContent() {
     try {
         const response = await axios.post(
-            'https://api-inference.huggingface.co/models/gpt2', // Используем GPT-2
-            {
-                inputs: "Напиши интересный пост для Telegram-канала.",
-                parameters: {
-                    max_length: 100, // Ограничение длины текста
-                    temperature: 0.7, // Креативность
-                },
-            },
-            {
-                headers: {
-                    'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
+    'https://api-inference.huggingface.co/models/distilgpt2', // Используем DistilGPT-2
+    {
+        inputs: "Напиши интересный пост для Telegram-канала.",
+        parameters: {
+            max_length: 100,
+            temperature: 0.7,
+        },
+    },
+    {
+        headers: {
+            'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+            'Content-Type': 'application/json',
+        },
+    }
+);
         return response.data[0].generated_text;
     } catch (error) {
         console.error('Ошибка при запросе к Hugging Face:', error);

@@ -1,4 +1,4 @@
-app = "your-telegram-bot-name"  # Замените на уникальное имя (например, my-cool-bot)
+app = "botavus"  # Замените на уникальное имя (например, my-cool-bot)
 
 [env]
   BOT_TOKEN = "6358415579:AAHQMEZ1vpBsTTpL1Vu2nddHFco5XUmq_Q0"  # Замените на реальный токен

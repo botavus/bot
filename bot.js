@@ -76,4 +76,4 @@ schedule_random_posts()
 
 while True:
     schedule.run_pending()
-    time.sleep(60)  # Проверка каждую минуту
+    time.sleep(18000)  # Проверка каждых 5 часов

@@ -1,0 +1,12 @@
+app = "your-telegram-bot-name"  # Замените на уникальное имя (например, my-cool-bot)
+
+[env]
+  BOT_TOKEN = "6358415579:AAHQMEZ1vpBsTTpL1Vu2nddHFco5XUmq_Q0"  # Замените на реальный токен
+  DESTINATION_CHANNEL = "@poparto"  # Замените на ваш целевой канал
+
+[build]
+  builder = "paketobuildpacks/builder:base"
+
+[[services]]
+  internal_port = 8080  # Не важно, бот не использует веб-порт
+  protocol = "tcp"

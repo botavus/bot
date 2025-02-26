@@ -41,9 +41,11 @@ function cleanText(text, channel) {
 // Функция для получения последних постов из канала
 async function getPostsFromChannel(channel) {
     try {
-        // Получаем последние 10 сообщений из канала
+        console.log(`Получаем посты из канала: ${channel}`);
         const messages = await bot.telegram.getChatHistory(channel, 10);
-        return messages
+        console.log(`Найдено сообщений: ${messages.length}`);
+
+        const filteredMessages = messages
             .filter(msg => msg.text || msg.photo || msg.video || msg.document) // Фильтруем текстовые и медиа-сообщения
             .map(msg => ({
                 ...msg,
@@ -51,6 +53,9 @@ async function getPostsFromChannel(channel) {
                 caption: msg.caption ? cleanText(msg.caption, channel) : null, // Очищаем подпись
             }))
             .filter(msg => !publishedPosts.includes(msg.text || msg.caption || msg.photo?.[0]?.file_id || msg.video?.file_id || msg.document?.file_id)); // Игнорируем уже опубликованные посты
+
+        console.log(`Подходящих постов после фильтрации: ${filteredMessages.length}`);
+        return filteredMessages;
     } catch (error) {
         console.error(`Ошибка при получении постов из канала ${channel}:`, error);
         return [];
@@ -126,16 +131,22 @@ async function main() {
 
         // Если ни в одном канале не нашлось подходящих постов
         console.log('Не найдено подходящих постов для публикации.');
+        throw new Error('Ошибка при генерации контента.');
     } catch (error) {
         console.error('Ошибка в основной функции:', error);
+        throw error;
     }
 }
 
 // Обработчик запросов
 module.exports = async (req, res) => {
     if (req.method === 'POST') {
-        await main();
-        res.status(200).json({ message: 'Пост опубликован в Telegram.' });
+        try {
+            await main();
+            res.status(200).json({ message: 'Пост опубликован в Telegram.' });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
     } else {
         res.status(405).json({ error: 'Метод не разрешен.' });
     }

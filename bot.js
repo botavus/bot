@@ -10,9 +10,9 @@ DESTINATION_CHANNEL = os.getenv("DESTINATION_CHANNEL")  # Куда публик�
 
 # 🔹 СПИСОК КАНАЛОВ-ИСТОЧНИКОВ
 SOURCE_CHANNELS = [
-    "@source_channel_1",
-    "@source_channel_2",
-    "@source_channel_3"
+    "@vanek_nikolaev",
+    "@UaOnliil2",
+    "@truexanewsua"
 ]
 
 # URL API Telegram
